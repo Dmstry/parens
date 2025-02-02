@@ -3,3 +3,6 @@
 
 (defn ^:after-load render []
   (main/render))
+
+(defonce started
+  (main/start))
