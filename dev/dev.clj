@@ -21,6 +21,4 @@
   (start)
   (stop)
 
-  integrant.repl.state/system
-
-  )
+  integrant.repl.state/system)

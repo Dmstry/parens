@@ -1,11 +1,11 @@
 (ns undead.system
-  (:require [clojure.java.io :as io]
-            [chord.http-kit :as chord]
-            [org.httpkit.server :as server]
-            [integrant.core :as ig]
-            [compojure.core :refer [routes GET]]
+  (:require [chord.http-kit :as chord]
+            [clojure.core.async :refer [put!]]
+            [clojure.java.io :as io]
+            [compojure.core :refer [GET routes]]
             [compojure.route :as route]
-            [clojure.core.async :refer [put!]]))
+            [integrant.core :as ig]
+            [org.httpkit.server :as server]))
 
 (def system
   {:app/config {}
@@ -20,7 +20,7 @@
 
 (defn ws-handler [req]
   (chord/with-channel req ws-channel
-    (put! ws-channel "Hello undead world")))
+    (put! ws-channel [[:assoc-in [:zombies :zombie-1] {:kind :mailman}]])))
 
 (defmethod ig/init-key :app/handler [_ _]
   (routes
@@ -36,4 +36,5 @@
 
 (comment
   (read-string (slurp (io/resource "config.edn")))
-  system)
+  
+  )
